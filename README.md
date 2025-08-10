@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aeruna - Premium Artisanal Bar Soaps
 
-## Getting Started
+A modern e-commerce website showcasing premium artisanal bar soaps with a futuristic design aesthetic. Built with Next.js 14 and featuring a dynamic hero carousel, comprehensive product pages, and full e-commerce functionality.
 
-First, run the development server:
+![Aeruna Hero Section](public/images/og-image.jpg)
+
+## ✨ Features
+
+- **Futuristic Hero Carousel** - Dynamic backgrounds with product showcases
+- **Responsive Design** - Mobile-first approach with dark/light mode support
+- **Product Catalog** - Detailed product pages with multiple images and specifications
+- **Shopping Cart** - Full cart functionality with Zustand state management
+- **Customer Reviews** - Star ratings and customer testimonials
+- **Trust Badges** - Security and quality indicators
+- **SEO Optimized** - Structured data, meta tags, and sitemap
+- **PWA Ready** - Web app manifest and service worker support
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **State Management**: Zustand
+- **Icons**: Lucide React
+- **Images**: Next.js Image Optimization
+
+## 🎨 Design Philosophy
+
+- **Minimal & Airy** - Clean, spacious layouts
+- **Premium Feel** - High-end aesthetic for luxury products
+- **Monochrome** - Black, white, and gray color scheme
+- **Futuristic** - Modern, sophisticated design elements
+
+## 📦 Products
+
+1. **Mint Soap** - Essential oil cleansing soap
+2. **Turmeric Soap** - Lemon essential oil handmade soap
+3. **Cherry Soap** - Fruit aroma with 24K gold leaf
+4. **Coconut Soap** - Milk moisturizing soap
+
+## 🚀 Getting Started
 
 ```bash
+# Clone the repository
+git clone https://github.com/AlexandruJungean/aeruna-website.git
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── layout.tsx      # Root layout with SEO
+│   ├── page.tsx        # Home page
+│   ├── products/       # Product pages
+│   └── cart/          # Cart page
+├── components/         # React components
+│   ├── HeroCarousel.tsx
+│   ├── ProductCard.tsx
+│   ├── ProductDetail.tsx
+│   └── ...
+├── data/              # Product data
+├── store/             # Zustand stores
+└── types/             # TypeScript types
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌐 Live Demo
 
-## Learn More
+Visit the live website: [https://aeruna.eu](https://aeruna.eu)
 
-To learn more about Next.js, take a look at the following resources:
+## 📱 PWA Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Installable web app
+- Offline support (with service worker)
+- App-like experience
+- Home screen icons
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔍 SEO Features
 
-## Deploy on Vercel
+- Structured data (JSON-LD)
+- Meta tags optimization
+- Sitemap generation
+- Robots.txt
+- Open Graph and Twitter cards
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+Built with ❤️ using Next.js and Tailwind CSS
