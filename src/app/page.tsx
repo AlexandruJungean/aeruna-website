@@ -4,106 +4,100 @@ import { HeroCarousel } from "@/components/HeroCarousel";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Reviews } from "@/components/Reviews";
 import { TrustBadges } from "@/components/TrustBadges";
-import { products } from "@/data/products";
+import { IngredientsShowcase } from "@/components/IngredientsShowcase";
+import { Newsletter } from "@/components/Newsletter";
 
 export default function Home() {
-  // Structured data for the product collection
-  const collectionStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "Aeruna Artisanal Bar Soaps",
-    description: "Premium artisanal bar soaps handcrafted with natural ingredients",
-    url: "https://aeruna.eu",
-    mainEntity: {
-      "@type": "ItemList",
-      itemListElement: products.map((product, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        item: {
-          "@type": "Product",
-          name: product.name,
-          description: product.description,
-          image: `https://aeruna.eu${product.image}`,
-          url: `https://aeruna.eu/products/${product.slug}`,
-          brand: {
-            "@type": "Brand",
-            name: "Aeruna"
-          },
-          offers: {
-            "@type": "Offer",
-            price: (product.priceCents / 100).toFixed(2),
-            priceCurrency: "USD",
-            availability: product.stock && product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
-          }
-        }
-      }))
-    }
-  };
-
-  // Breadcrumb structured data
-  const breadcrumbStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://aeruna.eu"
-      }
-    ]
-  };
-
   return (
-    <>
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(collectionStructuredData)
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbStructuredData)
-        }}
-      />
-      
-      <main className="">
+    <>      
+      <main>
         <HeroCarousel />
-        <TrustBadges />
-        <section className="container py-12">
-          <div className="flex items-end justify-between mb-6">
-            <h2 className="text-2xl tracking-tight">Featured soaps</h2>
-            <Link href="/products" className="text-sm opacity-70 hover:opacity-100">
-              View all
-            </Link>
-          </div>
-          <ProductGrid limit={4} />
+        
+        {/* Trust Badges - White background */}
+        <section className="bg-white">
+          <TrustBadges />
         </section>
-        <section className="container py-16 grid gap-6 md:grid-cols-2 items-center">
-          <div>
-            <h3 className="text-xl mb-3">About Aeruna</h3>
-            <p className="opacity-80 leading-relaxed">
-              Small batch, cold‑processed bar soaps made with skin‑loving oils and aromatic botanicals.
-              Minimal formulas. No harsh detergents. Designed for daily rituals.
-            </p>
-            <Link href="/about" className="mt-6 inline-block text-sm underline opacity-80 hover:opacity-100">
-              Learn more
-            </Link>
-          </div>
-          <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-black/5">
-            <Image
-              src="/images/2d/mint-2.png"
-              alt="Artisanal soaps on a minimal background"
-              fill
-              className="object-cover"
-              priority
-            />
+        
+        {/* Featured Products - Light gray background */}
+        <section className="py-24 bg-[#fafafa]">
+          <div className="container">
+            <div className="text-center mb-16">
+              <p className="text-xs font-light tracking-[0.3em] uppercase text-[var(--text-muted)] mb-4">
+                Best Sellers
+              </p>
+              <h2 className="text-3xl md:text-4xl font-light">Featured Collection</h2>
+            </div>
+            <ProductGrid limit={4} />
+            <div className="text-center mt-12">
+              <Link 
+                href="/products" 
+                className="inline-block text-sm font-light tracking-wider uppercase underline underline-offset-4 hover:text-[var(--accent-primary)] transition-colors"
+              >
+                View All Products
+              </Link>
+            </div>
           </div>
         </section>
-        <Reviews />
+        
+        {/* Divider */}
+        <div className="w-full h-px bg-gray-200"></div>
+        
+        {/* Ingredients - White background */}
+        <section className="bg-white">
+          <IngredientsShowcase />
+        </section>
+        
+        {/* Divider */}
+        <div className="w-full h-px bg-gray-200"></div>
+        
+        {/* About Section - Light beige background */}
+        <section className="py-24 bg-[#f9f7f4]">
+          <div className="container">
+            <div className="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+              <div>
+                <p className="text-xs font-light tracking-[0.3em] uppercase text-[var(--text-muted)] mb-4">
+                  Our Story
+                </p>
+                <h2 className="text-3xl md:text-4xl font-light mb-6">
+                  Crafted with Care
+                </h2>
+                <p className="text-lg font-light text-[var(--text-muted)] leading-relaxed mb-6">
+                  At Aeruna, we believe in the transformative power of natural ingredients. 
+                  Each bar is meticulously handcrafted in small batches using traditional 
+                  cold-process methods.
+                </p>
+                <p className="text-lg font-light text-[var(--text-muted)] leading-relaxed mb-8">
+                  Our commitment to minimal, thoughtful formulas means no harsh detergents 
+                  or synthetic additives—just pure, skin-loving ingredients.
+                </p>
+                <Link 
+                  href="/about" 
+                  className="inline-block text-sm font-light tracking-wider uppercase underline underline-offset-4 hover:text-[var(--accent-primary)] transition-colors"
+                >
+                  Learn More
+                </Link>
+              </div>
+              <div className="relative aspect-[4/5]">
+                <Image
+                  src="/images/2d/mint-2.png"
+                  alt="Artisanal soap making process"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Reviews - Light gray background */}
+        <section className="bg-[#fafafa]">
+          <Reviews />
+        </section>
+        
+        {/* Newsletter - White background */}
+        <section className="bg-white border-t border-gray-100">
+          <Newsletter />
+        </section>
       </main>
     </>
   );

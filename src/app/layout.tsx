@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -119,7 +120,7 @@ export default function RootLayout({
               "@type": "Organization",
               name: "Aeruna",
               url: "https://aeruna.eu",
-              logo: "https://aeruna.eu/logo.png",
+              logo: "https://aeruna.eu/images/Aeruna-logo.svg",
               description: "Premium artisanal bar soaps handcrafted with natural ingredients",
               sameAs: [
                 "https://instagram.com/aeruna",
@@ -157,14 +158,63 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Header />
         {children}
-        <div className="container">
-          <footer className="py-10 text-sm opacity-70">
-            <div className="flex items-center justify-between">
-              <p>© {new Date().getFullYear()} Aeruna. All rights reserved.</p>
-              <p>Handcrafted soaps, small batch.</p>
+        <footer className="border-t border-gray-100 bg-white">
+          <div className="container py-20">
+            <div className="flex flex-col md:flex-row md:justify-between gap-26 mb-16">
+              {/* Brand */}
+              <div className="text-center md:text-left">
+                <h3 className="text-lg font-light tracking-wider mb-4">AERUNA</h3>
+                <p className="text-sm font-light text-[var(--text-muted)]">
+                  Premium artisanal soaps handcrafted with natural ingredients.
+                </p>
+              </div>
+              
+              {/* Navigation Columns */}
+              <div className="grid grid-cols-3 gap-8 md:gap-16">
+                {/* Shop */}
+                <div className="text-center md:text-left">
+                  <h4 className="text-xs font-light tracking-[0.2em] uppercase mb-4">Shop</h4>
+                  <ul className="space-y-3">
+                    <li><Link href="/products" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">All Products</Link></li>
+                    <li><Link href="/products" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">Best Sellers</Link></li>
+                    <li><Link href="/products" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">New Arrivals</Link></li>
+                  </ul>
+                </div>
+                
+                {/* Customer Care */}
+                <div className="text-center md:text-left">
+                  <h4 className="text-xs font-light tracking-[0.2em] uppercase mb-4">Support</h4>
+                  <ul className="space-y-3">
+                    <li><Link href="/contact" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">Contact</Link></li>
+                    <li><a href="#" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">Shipping</a></li>
+                    <li><a href="#" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">Returns</a></li>
+                  </ul>
+                </div>
+                
+                {/* Company */}
+                <div className="text-center md:text-left">
+                  <h4 className="text-xs font-light tracking-[0.2em] uppercase mb-4">About</h4>
+                  <ul className="space-y-3">
+                    <li><Link href="/about" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">Our Story</Link></li>
+                    <li><a href="#" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">Sustainability</a></li>
+                    <li><a href="#" className="text-sm font-light text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors whitespace-nowrap">Ingredients</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </footer>
-        </div>
+            
+            <div className="pt-8 border-t border-gray-100">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p className="text-xs font-light text-[var(--text-muted)]">
+                  © {new Date().getFullYear()} Aeruna. All rights reserved.
+                </p>
+                <p className="text-xs font-light text-[var(--text-muted)]">
+                  Handcrafted soaps, made with care
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );

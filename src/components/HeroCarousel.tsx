@@ -1,127 +1,90 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { products } from "@/data/products";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function HeroCarousel() {
   const [index, setIndex] = useState(0);
   const product = products[index];
 
-  function next() {
-    setIndex((i) => (i + 1) % products.length);
-  }
-  function prev() {
-    setIndex((i) => (i - 1 + products.length) % products.length);
-  }
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % products.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <section className="relative min-h-[70vh] w-full overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={product.id + "bg"}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute inset-0"
-          style={{ background: product.background }}
-        />
-      </AnimatePresence>
+    <section className="relative bg-[#f9f7f4]">
+      <div className="container">
+        <div className="grid md:grid-cols-2 gap-12 py-20 md:py-32 items-center">
+          {/* Text Content */}
+          <div className="order-2 md:order-1 space-y-6">
+            <div className="space-y-4">
+              <p className="text-xs font-light tracking-[0.3em] uppercase text-[var(--text-muted)]">
+                Artisanal Collection
+              </p>
+              <h1 className="text-5xl md:text-6xl font-light leading-tight">
+                {product.name}
+              </h1>
+              <p className="text-lg font-light text-[var(--text-muted)] leading-relaxed max-w-lg">
+                {product.description}
+              </p>
+            </div>
+            
+            <div className="flex items-baseline gap-3">
+              <span className="text-2xl font-light">${(product.priceCents / 100).toFixed(2)}</span>
+              {product.weight && (
+                <span className="text-sm text-[var(--text-muted)]">{product.weight}</span>
+              )}
+            </div>
 
-      <div className="container relative z-10 py-16 md:py-24">
-        <div className="grid md:grid-cols-2 items-center gap-10">
-          <div className="text-white/90">
-            <motion.h1
-              key={product.id + "title"}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-4xl md:text-5xl tracking-tight"
-            >
-              {product.name}
-            </motion.h1>
-            <motion.p
-              key={product.id + "desc"}
-              initial={{ y: 12, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              className="mt-4 max-w-[50ch] opacity-90"
-            >
-              {product.description}
-            </motion.p>
-            <div className="mt-6 flex items-center gap-4">
+            <div className="flex gap-4 pt-4">
               <Link
                 href={`/products/${product.slug}`}
-                className="inline-flex items-center justify-center rounded-full bg-white text-black h-11 px-6 text-sm font-medium hover:opacity-90"
+                className="btn-primary inline-block"
               >
-                View soap
+                Shop Now
               </Link>
               <Link
                 href="/products"
-                className="inline-flex items-center justify-center rounded-full border border-white/40 text-white h-11 px-6 text-sm font-medium hover:bg-white/10"
+                className="btn-secondary inline-block"
               >
-                All products
+                View All
               </Link>
             </div>
           </div>
 
-          <div className="relative aspect-[4/3] md:aspect-[3/4] rounded-xl overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={product.id + "image"}
-                initial={{ opacity: 0, scale: 1.02 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </motion.div>
-            </AnimatePresence>
+          {/* Image */}
+          <div className="order-1 md:order-2">
+            <div className="relative aspect-[4/5] md:aspect-square">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-6 md:bottom-10 flex items-center justify-center gap-4">
-          <button
-            onClick={prev}
-            aria-label="Previous"
-            className="h-10 w-10 rounded-full bg-white/15 backdrop-blur border border-white/30 text-white flex items-center justify-center hover:bg-white/25"
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <div className="flex gap-2">
-            {products.map((p, i) => (
-              <button
-                key={p.id}
-                onClick={() => setIndex(i)}
-                aria-label={`Go to ${p.name}`}
-                className={`h-2.5 w-2.5 rounded-full ${
-                  i === index ? "bg-white" : "bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={next}
-            aria-label="Next"
-            className="h-10 w-10 rounded-full bg-white/15 backdrop-blur border border-white/30 text-white flex items-center justify-center hover:bg-white/25"
-          >
-            <ChevronRight size={18} />
-          </button>
+        {/* Minimal dots indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+          {products.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`w-8 h-0.5 transition-all ${
+                i === index ? "bg-[var(--foreground)]" : "bg-gray-300"
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
   );
 }
-
-
